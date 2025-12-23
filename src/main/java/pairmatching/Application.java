@@ -1,6 +1,8 @@
 package pairmatching;
 
 import camp.nextstep.edu.missionutils.Console;
+import camp.nextstep.edu.missionutils.Randoms;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -17,9 +19,10 @@ public class Application {
 
         MatchingInfo matchingInfo = getMatchingInfo();
 
-        FileReader fileReader = new FileLineReader();
-        List<String> backendCrews = fileReader.readFile(BACKEND_CREW_INFO);
-        List<String> frontendCrews = fileReader.readFile(FRONTEND_CREW_INFO);
+        if (startFunction == 1) {
+            Pairs pairs = getPairs(matchingInfo);
+            promptPairs(pairs);
+        }
     }
 
     private static int getStartFunction() {
@@ -83,6 +86,44 @@ public class Application {
             } catch (Exception exception) {
                 System.out.println(exception.getMessage());
             }
+        }
+    }
+
+    private static Pairs getPairs(MatchingInfo matchingInfo) {
+        FileReader fileReader = new FileLineReader();
+
+        List<String> backendNames = fileReader.readFile(BACKEND_CREW_INFO);
+        List<String> shuffledBackend = Randoms.shuffle(backendNames);
+        List<Crew> backendCrews = shuffledBackend.stream().map(crew -> new Crew(Course.BACKEND, crew))
+                .collect(Collectors.toList());
+
+        List<String> frontendNames = fileReader.readFile(FRONTEND_CREW_INFO);
+        List<String> shuffledFrontend = Randoms.shuffle(frontendNames);
+        List<Crew> frontendCrews = shuffledFrontend.stream().map(crew -> new Crew(Course.FRONTEND, crew))
+                .collect(Collectors.toList());
+
+        List<Crew> crews = new ArrayList<>();
+        if (matchingInfo.getCourse() == Course.BACKEND) {
+            crews = backendCrews;
+        }
+        if (matchingInfo.getCourse() == Course.FRONTEND) {
+            crews = frontendCrews;
+        }
+
+        return Pairs.from(crews, matchingInfo.getLevel());
+    }
+
+    private static void promptPairs(Pairs pairs) {
+        System.out.println();
+        System.out.println("페어 매칭 결과입니다.");
+
+        for (Pair pair : pairs.getPairs()) {
+            Crews crews = pair.getCrews();
+            List<String> names = crews.getCrews().stream()
+                    .map(Crew::getName)
+                    .collect(Collectors.toList());
+
+            System.out.println(String.join(" : ", names));
         }
     }
 }

@@ -20,4 +20,16 @@ public class MatchingInfo {
                 Mission.isExistMission(matchingInfo.get(2))
         );
     }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public Mission getMission() {
+        return mission;
+    }
 }

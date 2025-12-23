@@ -9,7 +9,15 @@ public class Crews {
         this.crews = crews;
     }
 
+    public boolean isOdd() {
+        return crews.size() % 2 == 1;
+    }
+
     public int size() {
         return crews.size();
+    }
+
+    public List<Crew> getCrews() {
+        return crews;
     }
 }
