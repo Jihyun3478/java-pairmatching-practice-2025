@@ -2,10 +2,22 @@ package pairmatching;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Objects;
+import pairmatching.util.BackendInfoReader;
+import pairmatching.util.FileReader;
+import pairmatching.util.FrontendInfoReader;
 
 public class Application {
+    private static final String BACKEND_CREW_INFO = "src/main/resources/backend-crew.md";
+    private static final String FRONTEND_CREW_INFO = "src/main/resources/frontend-crew.md";
+
     public static void main(String[] args) {
         int startFunction = getStartFunction();
+
+        FileReader backendInfoReader = new BackendInfoReader();
+        Crews backendCrews = backendInfoReader.readFile(BACKEND_CREW_INFO);
+        FileReader frontendInfoReader = new FrontendInfoReader();
+        Crews frontendCrews = frontendInfoReader.readFile(FRONTEND_CREW_INFO);
+
 
     }
 
