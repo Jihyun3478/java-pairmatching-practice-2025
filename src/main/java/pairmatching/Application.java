@@ -5,9 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import pairmatching.util.BackendInfoReader;
+import pairmatching.util.FileLineReader;
 import pairmatching.util.FileReader;
-import pairmatching.util.FrontendInfoReader;
 
 public class Application {
     private static final String BACKEND_CREW_INFO = "src/main/resources/backend-crew.md";
@@ -18,10 +17,9 @@ public class Application {
 
         MatchingInfo matchingInfo = getMatchingInfo();
 
-        FileReader backendInfoReader = new BackendInfoReader();
-        Crews backendCrews = backendInfoReader.readFile(BACKEND_CREW_INFO);
-        FileReader frontendInfoReader = new FrontendInfoReader();
-        Crews frontendCrews = frontendInfoReader.readFile(FRONTEND_CREW_INFO);
+        FileReader fileReader = new FileLineReader();
+        List<String> backendCrews = fileReader.readFile(BACKEND_CREW_INFO);
+        List<String> frontendCrews = fileReader.readFile(FRONTEND_CREW_INFO);
     }
 
     private static int getStartFunction() {

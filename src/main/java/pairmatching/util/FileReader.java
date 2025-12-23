@@ -1,7 +1,7 @@
 package pairmatching.util;
 
-import pairmatching.Crews;
+import java.util.List;
 
 public interface FileReader {
-    Crews readFile(String filePath);
+    List<String> readFile(String filePath);
 }
