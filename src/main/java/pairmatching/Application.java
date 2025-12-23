@@ -1,7 +1,10 @@
 package pairmatching;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import pairmatching.util.BackendInfoReader;
 import pairmatching.util.FileReader;
 import pairmatching.util.FrontendInfoReader;
@@ -13,12 +16,12 @@ public class Application {
     public static void main(String[] args) {
         int startFunction = getStartFunction();
 
+        MatchingInfo matchingInfo = getMatchingInfo();
+
         FileReader backendInfoReader = new BackendInfoReader();
         Crews backendCrews = backendInfoReader.readFile(BACKEND_CREW_INFO);
         FileReader frontendInfoReader = new FrontendInfoReader();
         Crews frontendCrews = frontendInfoReader.readFile(FRONTEND_CREW_INFO);
-
-
     }
 
     private static int getStartFunction() {
@@ -38,6 +41,49 @@ public class Application {
                 return Integer.parseInt(input);
             } catch (Exception exception) {
                 System.out.println("[ERROR] 잘못된 형식의 입력입니다. 다시 입력해주세요.");
+            }
+        }
+    }
+
+    private static MatchingInfo getMatchingInfo() {
+        while (true) {
+            try {
+                System.out.println();
+                System.out.println("#############################################");
+                System.out.println("과정: 백엔드 | 프론트엔드");
+                System.out.println("미션:");
+                System.out.println("  - 레벨1: 자동차경주 | 로또 | 숫자야구게임");
+                System.out.println("  - 레벨2: 장바구니 | 결제 | 지하철노선도");
+                System.out.println("  - 레벨3:");
+                System.out.println("  - 레벨4: 성능개선 | 배포");
+                System.out.println("  - 레벨5:");
+                System.out.println("############################################");
+                System.out.println("과정, 레벨, 미션을 선택하세요.");
+                System.out.println("ex) 백엔드, 레벨1, 자동차경주");
+
+                String input = Console.readLine();
+                if (Objects.isNull(input) || input.isEmpty()) {
+                    throw new IllegalArgumentException("[ERROR] 입력값이 비어있습니다. 다시 입력해주세요.");
+                }
+
+                if (input.startsWith(",") || input.endsWith(",")) {
+                    throw new IllegalArgumentException("[ERROR] 올바르지 않은 형식입니다. 다시 입력해주세요.");
+                }
+
+                if (input.contains(",,")) {
+                    throw new IllegalArgumentException("[ERROR] 올바르지 않은 형식입니다. 다시 입력해주세요.");
+                }
+
+
+                String[] split = input.split(", ");
+                if (Arrays.stream(split).anyMatch(String::isEmpty)) {
+                    throw new IllegalArgumentException("[ERROR] 올바르지 않은 형식입니다. 다시 입력해주세요.");
+                }
+
+                List<String> matchingInfo = Arrays.stream(split).collect(Collectors.toList());
+                return MatchingInfo.from(matchingInfo);
+            } catch (Exception exception) {
+                System.out.println(exception.getMessage());
             }
         }
     }
