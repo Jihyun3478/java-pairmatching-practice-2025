@@ -6,9 +6,9 @@
 
 ## 2. 기능 목록
 ### 입력 기능
-- [ ] 페어 매칭에 필요한 크루들의 이름을 파일 입출력을 통해 불러온다.
-  - [ ] `src/main/resources/backend-crew.md`과 `src/main/resources/frontend-crew.md` 파일을 이용한다.
-  - [ ] 두 파일의 내용은 수정이 가능하다. 수정 시 크루들의 이름은 중복될 수 없다.
+- [x] 페어 매칭에 필요한 크루들의 이름을 파일 입출력을 통해 불러온다.
+  - [x] `src/main/resources/backend-crew.md`과 `src/main/resources/frontend-crew.md` 파일을 이용한다.
+  - [x] 두 파일의 내용은 수정이 가능하다. 수정 시 크루들의 이름은 중복될 수 없다.
 
 
 - [ ] 기능을 입력받는다.

@@ -1,7 +1,10 @@
 package pairmatching;
 
+import pairmatching.controller.ManageController;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO 구현 진행
+        ManageController manageController = new ManageController();
+        manageController.start();
     }
 }
