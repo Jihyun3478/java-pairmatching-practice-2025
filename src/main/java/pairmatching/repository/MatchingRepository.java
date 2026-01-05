@@ -24,7 +24,7 @@ public class MatchingRepository {
         matchings.clear();
     }
 
-    public static Pairs findPairsByMatchingInfo(MatchingInfo matchingInfo) {
-        return matchings.get(matchingInfo);
+    public static boolean findPairsByMatchingInfo(MatchingInfo matchingInfo) {
+        return matchings.containsKey(matchingInfo);
     }
 }

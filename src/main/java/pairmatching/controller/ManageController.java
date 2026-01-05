@@ -2,6 +2,7 @@ package pairmatching.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 import pairmatching.domain.model.Course;
 import pairmatching.domain.model.Crew;
@@ -33,38 +34,18 @@ public class ManageController {
 
         MenuOption menuOption = null;
         do {
-            menuOption = askMenu();
+            menuOption = getMenu();
 
             if (menuOption == MenuOption.OPTION_1) {
                 outputView.printCourseAndMission();
                 MatchingInfo matchingInfo = getMatchingInfo();
-                Crews backendCrews = matchingService.shuffle(getCrews(backendNames, Course.BACKEND));
-                Crews frontendCrews = matchingService.shuffle(getCrews(frontendNames, Course.FRONTEND));
-
-                if (matchingInfo.getCourse() == Course.BACKEND) {
-                    Pairs pairs = matchingService.pairMatching(backendCrews);
-                    MatchingRepository.addMatchings(matchingInfo, pairs);
-                    outputView.printMatchingResult(pairs);
-                }
-                if (matchingInfo.getCourse() == Course.FRONTEND) {
-                    Pairs pairs = matchingService.pairMatching(frontendCrews);
-                    MatchingRepository.addMatchings(matchingInfo, pairs);
-                    outputView.printMatchingResult(pairs);
-                }
+                matchingPair(backendNames, frontendNames, matchingInfo);
             }
 
         } while (menuOption != MenuOption.OPTION_Q);
     }
 
-    private static List<Crew> getCrews(List<String> names, Course course) {
-        List<Crew> crews = new ArrayList<>();
-        for (String name : names) {
-            crews.add(new Crew(course, name));
-        }
-        return crews;
-    }
-
-    private MenuOption askMenu() {
+    private MenuOption getMenu() {
         return retryUntilSuccess(() -> {
             String menu = inputView.readMenu();
             return MenuOption.fromMenu(menu);
@@ -76,6 +57,31 @@ public class ManageController {
             String input = inputView.readMatchingInfo();
             return InputParser.parseMatchingInfo(input);
         });
+    }
+
+    private void matchingPair(List<String> backendNames, List<String> frontendNames, MatchingInfo matchingInfo) {
+        Crews backendCrews = matchingService.shuffle(getCrews(backendNames, Course.BACKEND));
+        Crews frontendCrews = matchingService.shuffle(getCrews(frontendNames, Course.FRONTEND));
+
+        if (matchingInfo.getCourse() == Course.BACKEND) {
+            getMatchingResult(backendCrews, matchingInfo);
+            return;
+        }
+        getMatchingResult(frontendCrews, matchingInfo);
+    }
+
+    private List<Crew> getCrews(List<String> names, Course course) {
+        List<Crew> crews = new ArrayList<>();
+        for (String name : names) {
+            crews.add(new Crew(course, name));
+        }
+        return crews;
+    }
+
+    private void getMatchingResult(Crews crews, MatchingInfo matchingInfo) {
+        Pairs pairs = matchingService.pairMatching(crews);
+        MatchingRepository.addMatchings(matchingInfo, pairs);
+        outputView.printMatchingResult(pairs);
     }
 
     private <T> T retryUntilSuccess(Supplier<T> action) {

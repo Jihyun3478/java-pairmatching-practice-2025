@@ -28,13 +28,16 @@ public class MatchingService {
             pair.matching(crews.getCrews().get(index));
             pair.matching(crews.getCrews().get(index + 1));
             index += 2;
+            pairs.add(pair);
 
             if (crews.isOdd() && index == crews.size() - 3) {
-                pair.matching(crews.getCrews().get(index));
-                pair.matching(crews.getCrews().get(index + 1));
-                pair.matching(crews.getCrews().get(index + 2));
+                Pair lastPair = new Pair();
+                lastPair.matching(crews.getCrews().get(index));
+                lastPair.matching(crews.getCrews().get(index + 1));
+                lastPair.matching(crews.getCrews().get(index + 2));
+                pairs.add(lastPair);
+                break;
             }
-            pairs.add(pair);
         }
         return new Pairs(pairs);
     }
