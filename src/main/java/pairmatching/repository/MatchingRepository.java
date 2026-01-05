@@ -2,7 +2,11 @@ package pairmatching.repository;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import pairmatching.domain.model.Course;
+import pairmatching.domain.model.Level;
 import pairmatching.domain.model.Pairs;
 import pairmatching.dto.MatchingInfo;
 
@@ -12,19 +16,37 @@ public class MatchingRepository {
 
     private static final Map<MatchingInfo, Pairs> matchings = new HashMap<>();
 
-    public static Map<MatchingInfo, Pairs> matchings() {
-        return Collections.unmodifiableMap(matchings);
-    }
-
     public static void addMatchings(MatchingInfo matchingInfo, Pairs pairs) {
         matchings.put(matchingInfo, pairs);
     }
 
-    public static void deleteAll() {
-        matchings.clear();
+    public static boolean findMatchingInfo(MatchingInfo matchingInfo) {
+        return matchings.keySet().stream()
+                .anyMatch(info ->
+                        info.getCourse() == matchingInfo.getCourse()
+                                && info.getLevel() == matchingInfo.getLevel()
+                                && info.getMission() == matchingInfo.getMission());
     }
 
-    public static boolean findPairsByMatchingInfo(MatchingInfo matchingInfo) {
-        return matchings.containsKey(matchingInfo);
+    public static Pairs findPairs(MatchingInfo matchingInfo) {
+        return matchings.keySet().stream()
+                .filter(info -> info.getCourse() == matchingInfo.getCourse()
+                        && info.getLevel() == matchingInfo.getLevel()
+                        && info.getMission() == matchingInfo.getMission())
+                .findAny()
+                .map(matchings::get)
+                .orElse(null);
+    }
+
+    public static List<Pairs> findByCourseAndLevel(Course course, Level level) {
+        return matchings.keySet().stream()
+                .filter(matchingInfo -> matchingInfo.getCourse() == course && matchingInfo.getLevel() == level)
+                .map(matchings::get)
+                .collect(Collectors.toList());
+
+    }
+
+    public static void deleteAll() {
+        matchings.clear();
     }
 }
