@@ -2,7 +2,11 @@ package pairmatching.repository;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import pairmatching.domain.model.Course;
+import pairmatching.domain.model.Level;
 import pairmatching.domain.model.Pairs;
 import pairmatching.dto.MatchingInfo;
 
@@ -24,7 +28,11 @@ public class MatchingRepository {
         matchings.clear();
     }
 
-    public static boolean findPairsByMatchingInfo(MatchingInfo matchingInfo) {
-        return matchings.containsKey(matchingInfo);
+    public static List<Pairs> findByCourseAndLevel(Course course, Level level) {
+        return matchings.keySet().stream()
+                .filter(matchingInfo -> matchingInfo.getCourse() == course && matchingInfo.getLevel() == level)
+                .map(matchings::get)
+                .collect(Collectors.toList());
+
     }
 }

@@ -79,7 +79,7 @@ public class ManageController {
     }
 
     private void getMatchingResult(Crews crews, MatchingInfo matchingInfo) {
-        Pairs pairs = matchingService.pairMatching(crews);
+        Pairs pairs = matchingService.validateMatching(crews, matchingInfo);
         MatchingRepository.addMatchings(matchingInfo, pairs);
         outputView.printMatchingResult(pairs);
     }

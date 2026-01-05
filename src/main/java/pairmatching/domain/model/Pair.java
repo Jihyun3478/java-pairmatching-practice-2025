@@ -1,6 +1,7 @@
 package pairmatching.domain.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,5 +20,23 @@ public class Pair {
         return pair.stream()
                 .map(Crew::getName)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof Pair)) {
+            return false;
+        }
+        Pair newPair = (Pair) object;
+        return pair.size() == newPair.pair.size()
+                && new HashSet<>(pair).containsAll(newPair.pair);
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashSet<>(pair).hashCode();
     }
 }

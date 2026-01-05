@@ -12,4 +12,21 @@ public class Crew {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof Crew)) {
+            return false;
+        }
+        Crew crew = (Crew) object;
+        return name.equals(crew.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }
