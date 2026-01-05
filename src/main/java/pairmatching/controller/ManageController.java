@@ -7,7 +7,7 @@ import pairmatching.domain.model.Course;
 import pairmatching.domain.model.Crew;
 import pairmatching.domain.model.Crews;
 import pairmatching.domain.model.MenuOption;
-import pairmatching.domain.model.Pairs;
+import pairmatching.domain.model.Pair;
 import pairmatching.dto.MatchingInfo;
 import pairmatching.repository.MatchingRepository;
 import pairmatching.service.MatchingService;
@@ -36,21 +36,14 @@ public class ManageController {
             menuOption = getMenu();
 
             if (menuOption == MenuOption.OPTION_1) {
-                outputView.printCourseAndMission();
-                MatchingInfo matchingInfo = getMatchingInfo();
-                matchingPair(backendNames, frontendNames, matchingInfo);
+                getOption1(backendNames, frontendNames);
             }
             if (menuOption == MenuOption.OPTION_2) {
-                outputView.printCourseAndMission();
-                MatchingInfo matchingInfo = getMatchingInfo();
-                Pairs pairs = MatchingRepository.findPairs(matchingInfo);
-                outputView.printMatchingResult(pairs);
+                getOption2();
             }
             if (menuOption == MenuOption.OPTION_3) {
-                MatchingRepository.deleteAll();
-                outputView.printResetMessage();
+                getOption3();
             }
-
         } while (menuOption != MenuOption.OPTION_Q);
     }
 
@@ -71,19 +64,35 @@ public class ManageController {
         });
     }
 
+    private void getOption1(List<String> backendNames, List<String> frontendNames) {
+        outputView.printCourseAndMission();
+        MatchingInfo matchingInfo = getMatchingInfo();
+        matchingPair(backendNames, frontendNames, matchingInfo);
+    }
+
+    private void getOption2() {
+        outputView.printCourseAndMission();
+        MatchingInfo matchingInfo = getMatchingInfo();
+        List<Pair> pairs = MatchingRepository.findPairs(matchingInfo);
+        outputView.printMatchingResult(pairs);
+    }
+
+    private void getOption3() {
+        MatchingRepository.deleteAll();
+        outputView.printResetMessage();
+    }
+
     private void matchingPair(List<String> backendNames, List<String> frontendNames, MatchingInfo matchingInfo) {
         if (MatchingRepository.findMatchingInfo(matchingInfo)) {
             String rematching = getRematching();
             if (rematching.equals("아니오")) {
-                outputView.printCourseAndMission();
-                MatchingInfo newMatchingInfo = getMatchingInfo();
-                matchingPair(backendNames, frontendNames, newMatchingInfo);
+                getOption1(backendNames, frontendNames);
                 return;
             }
         }
 
         Crews crews = getCrewsByCourse(backendNames, frontendNames, matchingInfo);
-        Pairs pairs = matchingService.validateMatching(crews, matchingInfo);
+        List<Pair> pairs = matchingService.validateMatching(crews, matchingInfo);
         MatchingRepository.addMatchings(matchingInfo, pairs);
         outputView.printMatchingResult(pairs);
     }

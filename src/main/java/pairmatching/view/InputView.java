@@ -16,11 +16,9 @@ public class InputView {
     public String readMatchingInfo() {
         System.out.println("과정, 레벨, 미션을 선택하세요.");
         System.out.println("ex) 백엔드, 레벨1, 자동차경주");
-        System.out.println("[DEBUG] readLine 호출 전");
 
         String input = Console.readLine();
 
-        System.out.println("[DEBUG] readLine 호출 후: " + input);
         return input;
     }
 

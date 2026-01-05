@@ -1,7 +1,7 @@
 package pairmatching.view;
 
+import java.util.List;
 import pairmatching.domain.model.Pair;
-import pairmatching.domain.model.Pairs;
 
 public class OutputView {
     private static final String NEW_LINE = "\n";
@@ -19,9 +19,9 @@ public class OutputView {
         System.out.println("############################################");
     }
 
-    public void printMatchingResult(Pairs pairs) {
+    public void printMatchingResult(List<Pair> pairs) {
         System.out.println("페어 매칭 결과입니다.");
-        for (Pair pair : pairs.getPairs()) {
+        for (Pair pair : pairs) {
             System.out.println(String.join(" : ", pair.getPair()));
         }
         System.out.println();
