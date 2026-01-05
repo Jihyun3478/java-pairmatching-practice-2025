@@ -19,6 +19,6 @@ public enum Level {
     return Arrays.stream(values())
             .filter(level -> level.name.equals(levelName))
             .findAny()
-            .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 레벨입니다."));
+            .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 레벨입니다. 다시 입력해주세요."));
   }
 }

@@ -16,6 +16,6 @@ public enum Course {
         return Arrays.stream(values())
                 .filter(course -> course.name.equals(courseName))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 과정입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 과정입니다. 다시 입력해주세요."));
     }
 }

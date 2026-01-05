@@ -26,6 +26,6 @@ public enum Mission {
         return Arrays.stream(values())
                 .filter(mission -> mission.level == level && mission.name.equals(missionName))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 미션입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 미션입니다. 다시 입력해주세요."));
     }
 }
