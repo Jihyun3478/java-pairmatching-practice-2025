@@ -2,7 +2,6 @@ package pairmatching.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Supplier;
 import pairmatching.domain.model.Course;
 import pairmatching.domain.model.Crew;
@@ -63,8 +62,11 @@ public class ManageController {
     }
 
     private MatchingInfo getMatchingInfo() {
+        System.out.println("[DEBUG] getMatchingInfo 시작");
         return retryUntilSuccess(() -> {
+            System.out.println("[DEBUG] action 실행");
             String input = inputView.readMatchingInfo();
+            System.out.println("[DEBUG] parseMatchingInfo 호출");
             return InputParser.parseMatchingInfo(input);
         });
     }
@@ -101,10 +103,8 @@ public class ManageController {
         return crews;
     }
 
-    private void getMatchingResult(Crews crews, MatchingInfo matchingInfo) {
-        Pairs pairs = matchingService.pairMatching(crews);
-        MatchingRepository.addMatchings(matchingInfo, pairs);
-        outputView.printMatchingResult(pairs);
+    private String getRematching() {
+        return retryUntilSuccess(inputView::readRematching);
     }
 
     private <T> T retryUntilSuccess(Supplier<T> action) {

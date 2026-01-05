@@ -11,8 +11,9 @@ import pairmatching.domain.model.Pairs;
 import pairmatching.dto.MatchingInfo;
 
 public class MatchingRepository {
-    
-    private MatchingRepository() {}
+
+    private MatchingRepository() {
+    }
 
     private static final Map<MatchingInfo, Pairs> matchings = new HashMap<>();
 
@@ -48,9 +49,5 @@ public class MatchingRepository {
 
     public static void deleteAll() {
         matchings.clear();
-    }
-
-    public static boolean findPairsByMatchingInfo(MatchingInfo matchingInfo) {
-        return matchings.containsKey(matchingInfo);
     }
 }
