@@ -49,4 +49,8 @@ public class MatchingRepository {
     public static void deleteAll() {
         matchings.clear();
     }
+
+    public static boolean findPairsByMatchingInfo(MatchingInfo matchingInfo) {
+        return matchings.containsKey(matchingInfo);
+    }
 }

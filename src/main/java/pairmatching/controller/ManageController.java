@@ -2,6 +2,7 @@ package pairmatching.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 import pairmatching.domain.model.Course;
 import pairmatching.domain.model.Crew;
@@ -100,8 +101,10 @@ public class ManageController {
         return crews;
     }
 
-    private String getRematching() {
-        return retryUntilSuccess(inputView::readRematching);
+    private void getMatchingResult(Crews crews, MatchingInfo matchingInfo) {
+        Pairs pairs = matchingService.pairMatching(crews);
+        MatchingRepository.addMatchings(matchingInfo, pairs);
+        outputView.printMatchingResult(pairs);
     }
 
     private <T> T retryUntilSuccess(Supplier<T> action) {
