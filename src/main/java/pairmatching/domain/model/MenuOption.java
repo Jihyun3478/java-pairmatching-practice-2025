@@ -19,7 +19,7 @@ public enum MenuOption {
     public static MenuOption fromMenu(String menu) {
         return Arrays.stream(values())
             .filter(option -> option.menu.equals(menu))
-            .findFirst()
+            .findAny()
             .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 기능입니다. 다시 입력해주세요."));
     }
 

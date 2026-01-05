@@ -2,6 +2,7 @@ package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import pairmatching.domain.model.MenuOption;
+import pairmatching.util.InputValidator;
 
 public class InputView {
     public String readMenu() {
@@ -10,5 +11,15 @@ public class InputView {
             System.out.printf("%s. %s%n", menuOption.getMenu(), menuOption.getDescription());
         }
         return Console.readLine();
+    }
+
+    public String readMatchingInfo() {
+        System.out.println("과정, 레벨, 미션을 선택하세요.");
+        System.out.println("ex) 백엔드, 레벨1, 자동차경주");
+
+        String input = Console.readLine();
+        InputValidator.validateNotEmpty(input);
+
+        return input;
     }
 }
