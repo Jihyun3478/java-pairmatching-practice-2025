@@ -1,8 +1,8 @@
 package pairmatching.dto;
 
-import pairmatching.domain.model.Course;
-import pairmatching.domain.model.Level;
-import pairmatching.domain.model.Mission;
+import pairmatching.domain.Course;
+import pairmatching.domain.Level;
+import pairmatching.domain.Mission;
 
 public class MatchingInfo {
     private final Course course;

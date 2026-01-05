@@ -1,4 +1,4 @@
-package pairmatching.domain.model;
+package pairmatching.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

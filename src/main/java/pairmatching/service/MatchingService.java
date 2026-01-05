@@ -1,13 +1,11 @@
 package pairmatching.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import pairmatching.domain.model.Crew;
-import pairmatching.domain.model.Crews;
-import pairmatching.domain.model.Pair;
+import pairmatching.domain.Crew;
+import pairmatching.domain.Crews;
+import pairmatching.domain.Pair;
 import pairmatching.dto.MatchingInfo;
-import pairmatching.repository.MatchingRepository;
+import pairmatching.domain.repository.MatchingRepository;
 
 public class MatchingService {
     private final ShuffleGenerator shuffleGenerator;

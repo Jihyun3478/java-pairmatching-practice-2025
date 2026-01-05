@@ -1,7 +1,7 @@
 package pairmatching.view;
 
 import java.util.List;
-import pairmatching.domain.model.Pair;
+import pairmatching.domain.Pair;
 
 public class OutputView {
     private static final String NEW_LINE = "\n";

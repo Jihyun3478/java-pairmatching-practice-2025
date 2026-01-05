@@ -1,7 +1,7 @@
 package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import pairmatching.domain.model.MenuOption;
+import pairmatching.domain.MenuOption;
 import pairmatching.util.InputValidator;
 
 public class InputView {

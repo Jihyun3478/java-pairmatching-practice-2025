@@ -8,8 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import pairmatching.domain.model.Course;
-import pairmatching.domain.model.Crew;
+import pairmatching.domain.Course;
+import pairmatching.domain.Crew;
 
 class ShuffleGeneratorTest {
     private ShuffleGenerator shuffleGenerator;

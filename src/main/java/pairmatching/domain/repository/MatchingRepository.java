@@ -1,12 +1,12 @@
-package pairmatching.repository;
+package pairmatching.domain.repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import pairmatching.domain.model.Course;
-import pairmatching.domain.model.Level;
-import pairmatching.domain.model.Pair;
+import pairmatching.domain.Course;
+import pairmatching.domain.Level;
+import pairmatching.domain.Pair;
 import pairmatching.dto.MatchingInfo;
 
 public class MatchingRepository {
